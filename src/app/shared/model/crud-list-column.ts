@@ -1,15 +1,40 @@
 
-export class CrudListColumn<T> {
+export class CrudListColumn {
+
+  public field?: string | null;
+  public label?: string | null;
+  public hint?: string;
+  public image64?: boolean;
+  public islink?: boolean;
+  public fnFormat?: (value: any) => string;
+  public fnShowCondition?: (value: any) => boolean;
 
   constructor(
-    public field?: string,
-    public label?: string,
-    public hint?: string,
-    public image64?: boolean,
-    public islink?: boolean,
-    public fnFormat?: (value: T) => string,
-    public fnShowCondition?: (value: T) => boolean
-  ){}
+    {
+      field,
+      label,
+      hint,
+      image64,
+      islink,
+      fnFormat,
+      fnShowCondition
+    } : {
+      field?: string | null,
+      label?: string | null,
+      hint?: string,
+      image64?: boolean,
+      islink?: boolean,
+      fnFormat?: (value: any) => string,
+      fnShowCondition?: (value: any) => boolean} = {}
+  ){
+    this.field = field;
+    this.label = label;
+    this.hint = hint;
+    this.image64 = image64;
+    this.islink = islink;
+    this.fnFormat =fnFormat;
+    this.fnShowCondition = fnShowCondition;
+  }
 
   public static builder(): CrudListColumnBuilder {
     return new CrudListColumnBuilder();
@@ -21,7 +46,7 @@ export class CrudListColumn<T> {
 
       let show = true;
       if (this.fnShowCondition) {
-        show = this.fnShowCondition(val);
+        show = this.fnShowCondition(row);
       }
 
       if (show){
@@ -45,8 +70,8 @@ export class CrudListColumn<T> {
 }
 
 export class CrudListColumnBuilder {
-  private _label?: string;
-  private _field?: string;
+  private _label: string | null = null;
+  private _field: string | null = null;
   private _hint?: string;
   private _image64?: boolean;
   private _islink?: boolean;
@@ -81,15 +106,16 @@ export class CrudListColumnBuilder {
     this._fnShowCondition = val;
     return this;
   }
-  public build<T>(): CrudListColumn<T> {
-    return new CrudListColumn<T>(
-      this._field,
-      this._label,
-      this._hint,
-      this._image64,
-      this._islink,
-      this._fnFormat,
-      this._fnShowCondition
+  public build(): CrudListColumn {
+    return new CrudListColumn(
+      {
+        field: this._field,
+        label: this._label,
+        hint: this._hint,
+        image64: this._image64,
+        islink: this._islink,
+        fnFormat: this._fnFormat,
+        fnShowCondition: this._fnShowCondition}
     );
   }
 
