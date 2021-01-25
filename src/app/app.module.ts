@@ -1,18 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { WngxFilterModule, WfilterPipe } from 'wngx-filter';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    WngxFilterModule,
   ],
-  providers: [],
+  providers: [
+    WfilterPipe,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

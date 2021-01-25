@@ -21,6 +21,7 @@
     "@angular/router": "~11.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "wngx-filter": "^2.1.2",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
