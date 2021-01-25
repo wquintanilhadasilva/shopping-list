@@ -1,13 +1,13 @@
-import { BehaviorSubject, observable, Observable } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { CrudListColumn } from "./crud-list-column";
 
 export class CrudList<T> {
 
-  private _columns: CrudListColumn[] = [];
+  private _columns: CrudListColumn<T>[] = [];
   private _dataSource: T[] = [];
   private _dataView: BehaviorSubject<T[]> = new BehaviorSubject(this._dataSource);
 
-  public get columns(): CrudListColumn[] {
+  public get columns(): CrudListColumn<T>[] {
     return this._columns;
   }
 
@@ -38,7 +38,7 @@ export class CrudList<T> {
   public value(row: T, column: string): string {
 
     if (row && column) {
-      const col: CrudListColumn | undefined = this._columns.find(c => c.field === column);
+      const col: CrudListColumn<T> | undefined = this._columns.find(c => c.field === column);
       if (col) {
         return col.value(row);
       } else {

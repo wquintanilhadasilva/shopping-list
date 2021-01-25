@@ -1,5 +1,5 @@
 
-export class CrudListColumn {
+export class CrudListColumn<T> {
 
   constructor(
     public field?: string,
@@ -7,8 +7,8 @@ export class CrudListColumn {
     public hint?: string,
     public image64?: boolean,
     public islink?: boolean,
-    public fnFormat?: (value: any) => string,
-    public fnShowCondition?: (value: any) => boolean
+    public fnFormat?: (value: T) => string,
+    public fnShowCondition?: (value: T) => boolean
   ){}
 
   public static builder(): CrudListColumnBuilder {
@@ -81,8 +81,8 @@ export class CrudListColumnBuilder {
     this._fnShowCondition = val;
     return this;
   }
-  public build(): CrudListColumn {
-    return new CrudListColumn(
+  public build<T>(): CrudListColumn<T> {
+    return new CrudListColumn<T>(
       this._field,
       this._label,
       this._hint,
