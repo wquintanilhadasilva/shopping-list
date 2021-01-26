@@ -32,6 +32,10 @@ export class AppComponent implements OnInit{
         .fnFormat((v:Date) => v.toLocaleDateString())
         .fnShowCondition((row:Veiculo)=> row.ano === 2001)
         .build());
+    this.crudList.addColumn(CrudListColumn.builder()
+        .label('Marca/Modelo')
+        .fnCellValue((row:Veiculo) => `${row.modelo}-${row.marca}`)
+        .build());
 
     this.buildVeiculo();
   }

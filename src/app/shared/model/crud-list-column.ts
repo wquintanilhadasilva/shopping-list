@@ -8,6 +8,7 @@ export class CrudListColumn {
   public islink?: boolean = false;
   public fnFormat?: (value: any) => string;
   public fnShowCondition?: (value: any, defaultValue?: string) => boolean;
+  public fnCellValue?: (value: any) => string;
 
   constructor(
     {
@@ -17,7 +18,8 @@ export class CrudListColumn {
       image64,
       islink,
       fnFormat,
-      fnShowCondition
+      fnShowCondition,
+      fnCellValue,
     } : {
       field?: string | null,
       label?: string | null,
@@ -25,7 +27,9 @@ export class CrudListColumn {
       image64?: boolean,
       islink?: boolean,
       fnFormat?: (value: any) => string,
-      fnShowCondition?: (value: any, defaultValue?: string) => boolean} = {}
+      fnShowCondition?: (value: any) => boolean,
+      fnCellValue?: (value: any) => string,
+    } = {}
   ){
     this.field = field;
     this.label = label;
@@ -34,6 +38,7 @@ export class CrudListColumn {
     this.islink = islink;
     this.fnFormat =fnFormat;
     this.fnShowCondition = fnShowCondition;
+    this.fnCellValue = fnCellValue;
   }
 
   public static builder(): CrudListColumnBuilder {
@@ -41,29 +46,61 @@ export class CrudListColumn {
   }
 
   public value(row: any, format: boolean = false): string {
-    if (this.field){
-      let val = row[this.field];
 
-      let show = true;
-      if (this.fnShowCondition) {
-        show = this.fnShowCondition(row);
-      }
+    let show = true;
 
-      if (show){
+    if (this.fnShowCondition) {
+      show = this.fnShowCondition(row);
+    }
+
+    if (show){
+
+      /** Se tiver uma função para gerar o valor da célula, retorna o valor gerado pela função */
+      if(this.fnCellValue) {
+
+        return this.fnCellValue(row);
+
+      }else {
+
+        if(!this.field){
+          return '';
+        }
+
+        let val = row[this.field];
 
         if (this.fnFormat && format) {
           val = this.fnFormat(val);
         }
 
         return val;
-
-      } else {
-        return '';
       }
 
     } else {
       return '';
     }
+
+
+
+
+    // if (this.field){
+
+    //   if (show){
+
+    //     let val = row[this.field];
+
+    //     if (this.fnFormat && format) {
+    //       val = this.fnFormat(val);
+    //     }
+
+    //     return val;
+
+    //   } else {
+    //     return '';
+    //   }
+
+    // } else {
+    //   return '';
+    // }
 
   }
 
@@ -77,6 +114,7 @@ export class CrudListColumnBuilder {
   private _islink?: boolean;
   private _fnFormat?: (value: any) => string;
   private _fnShowCondition?: (value: any) => boolean;
+  private _fnCellValue?: (value: any) => string;
 
   public label(val: string): CrudListColumnBuilder {
     this._label = val;
@@ -102,10 +140,15 @@ export class CrudListColumnBuilder {
     this._fnFormat = val;
     return this;
   }
-  public fnShowCondition(val: (value: any, defaultValue?: string) => boolean): CrudListColumnBuilder {
+  public fnShowCondition(val: (value: any) => boolean): CrudListColumnBuilder {
     this._fnShowCondition = val;
     return this;
   }
+  public fnCellValue(val: (value: any) => string): CrudListColumnBuilder {
+    this._fnCellValue = val;
+    return this;
+  }
+
   public build(): CrudListColumn {
     return new CrudListColumn(
       {
@@ -115,7 +158,9 @@ export class CrudListColumnBuilder {
         image64: this._image64,
         islink: this._islink,
         fnFormat: this._fnFormat,
-        fnShowCondition: this._fnShowCondition}
+        fnShowCondition: this._fnShowCondition,
+        fnCellValue: this._fnCellValue
+      }
     );
   }
 
