@@ -13,7 +13,7 @@ export class CrudList<T> {
   }
 
   public get columns(): CrudListColumn[] {
-    return this._columns;
+    return [...this._columns];
   }
 
   public get dataView(): Observable<T[]> {
@@ -31,7 +31,7 @@ export class CrudList<T> {
 
   public filter(filter: FilterParam[] | string | number): void {
     /** use wngx-filter */
-    this._dataView.next(this.pipeFilter.transform(this._dataSource, filter));
+    this._dataView.next(this.pipeFilter.transform(this._dataSourceFormated, filter));
 
   }
 
@@ -42,12 +42,12 @@ export class CrudList<T> {
     }
   }
 
-  public value(row: T, column: string | null): string {
+  public valueOf(row: T, column: string | null | undefined): string {
 
     if (row && column) {
       const col: CrudListColumn | undefined = this._columns.find(c => c.field === column);
       if (col) {
-        return col.value(row);
+        return col.value(row, true);
       } else {
         return '';
       }
@@ -77,7 +77,7 @@ export class CrudList<T> {
         const d: any = {};
         this._columns.forEach(col => {
           if (col?.field){
-            const v = this.value(value, col.field);
+            const v = this.valueOf(value, col.field);
             d[col.field] = v;
           }
         });

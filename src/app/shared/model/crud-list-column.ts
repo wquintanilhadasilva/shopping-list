@@ -4,10 +4,10 @@ export class CrudListColumn {
   public field?: string | null;
   public label?: string | null;
   public hint?: string;
-  public image64?: boolean;
-  public islink?: boolean;
+  public image64?: boolean = false;
+  public islink?: boolean = false;
   public fnFormat?: (value: any) => string;
-  public fnShowCondition?: (value: any) => boolean;
+  public fnShowCondition?: (value: any, defaultValue?: string) => boolean;
 
   constructor(
     {
@@ -25,7 +25,7 @@ export class CrudListColumn {
       image64?: boolean,
       islink?: boolean,
       fnFormat?: (value: any) => string,
-      fnShowCondition?: (value: any) => boolean} = {}
+      fnShowCondition?: (value: any, defaultValue?: string) => boolean} = {}
   ){
     this.field = field;
     this.label = label;
@@ -40,7 +40,7 @@ export class CrudListColumn {
     return new CrudListColumnBuilder();
   }
 
-  public value(row: any): string {
+  public value(row: any, format: boolean = false): string {
     if (this.field){
       let val = row[this.field];
 
@@ -51,7 +51,7 @@ export class CrudListColumn {
 
       if (show){
 
-        if (this.fnFormat) {
+        if (this.fnFormat && format) {
           val = this.fnFormat(val);
         }
 
@@ -102,7 +102,7 @@ export class CrudListColumnBuilder {
     this._fnFormat = val;
     return this;
   }
-  public fnShowCondition(val: (value: any) => boolean): CrudListColumnBuilder {
+  public fnShowCondition(val: (value: any, defaultValue?: string) => boolean): CrudListColumnBuilder {
     this._fnShowCondition = val;
     return this;
   }
