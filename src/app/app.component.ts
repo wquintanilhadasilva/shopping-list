@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WfilterPipe } from 'wngx-filter';
+import { FilterParam, WfilterPipe } from 'wngx-filter';
 import { CrudList } from './shared/model/crud-list';
 import { CrudListColumn } from './shared/model/crud-list-column';
 
@@ -22,6 +22,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.crudList = new CrudList<Veiculo>(this.pipe);
+    this.crudList.addColumn(new CrudListColumn({ field: 'ano', label: 'Ano'}));
     this.crudList.addColumn(CrudListColumn.builder().field('ano').label('Ano').build());
     this.crudList.addColumn(CrudListColumn.builder().field('placa').label('Placa').build());
     this.crudList.addColumn(CrudListColumn.builder().field('modelo').label('Modelo').build());
@@ -33,6 +34,18 @@ export class AppComponent implements OnInit{
         .build());
 
     this.buildVeiculo();
+  }
+
+  filter(filter: string){
+    console.log(filter);
+    const f: FilterParam[] = [
+      {field: 'ano', value: filter},
+      {field: 'placa', value: filter},
+      {field: 'data', value: filter},
+      {field: 'modelo', value: filter},
+      {field: 'marca', value: filter},
+    ];
+    this.crudList?.filter(f);
   }
 
   private buildVeiculo(): void {
