@@ -11,7 +11,15 @@ import { PageCrudFilterComponent } from './page-crud-filter/page-crud-filter.com
 
 
 @NgModule({
-  declarations: [PageHeaderComponent, PageTitleComponent, PageFooterComponent, PageCrudComponent, PageCrudEditComponent, PageCrudListComponent, PageCrudFilterComponent],
+  declarations: [
+    PageHeaderComponent,
+    PageTitleComponent,
+    PageFooterComponent,
+    PageCrudComponent,
+    PageCrudEditComponent,
+    PageCrudListComponent,
+    PageCrudFilterComponent
+  ],
   imports: [
     CommonModule
   ]
