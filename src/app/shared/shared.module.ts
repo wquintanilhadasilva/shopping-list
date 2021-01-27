@@ -8,8 +8,6 @@ import { PageCrudEditComponent } from './page-crud-edit/page-crud-edit.component
 import { PageCrudListComponent } from './page-crud-list/page-crud-list.component';
 import { PageCrudFilterComponent } from './page-crud-filter/page-crud-filter.component';
 
-
-
 @NgModule({
   declarations: [
     PageHeaderComponent,
@@ -22,6 +20,15 @@ import { PageCrudFilterComponent } from './page-crud-filter/page-crud-filter.com
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    PageHeaderComponent,
+    PageTitleComponent,
+    PageFooterComponent,
+    PageCrudComponent,
+    PageCrudEditComponent,
+    PageCrudListComponent,
+    PageCrudFilterComponent,
   ]
 })
 export class SharedModule { }

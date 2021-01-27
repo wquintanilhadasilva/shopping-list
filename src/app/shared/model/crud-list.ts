@@ -15,6 +15,9 @@ export class CrudList<T> {
   public get columns(): CrudListColumn[] {
     return [...this._columns];
   }
+  public set columns(value: CrudListColumn[]) {
+    this._columns = value;
+  }
 
   public get dataView(): Observable<T[]> {
     return this._dataView.asObservable();
@@ -42,12 +45,16 @@ export class CrudList<T> {
     }
   }
 
-  public valueOf(row: T, column: string | null | undefined): string {
+  public valueOf(row: T, column: string | null | undefined): any {
 
     if (row && column) {
       const col: CrudListColumn | undefined = this._columns.find(c => c.field === column);
       if (col) {
-        return col.value(row, true);
+        if(col.image64){
+          return col.value(row, true, false);
+        }else {
+          return col.value(row, true);
+        }
       } else {
         return '';
       }
@@ -63,7 +70,6 @@ export class CrudList<T> {
 
   private update(): void {
     if (this._dataSource){
-      // this._dataView.next(this._dataSource);
       this.formatDataView();
     } else {
       this._dataView.next([]);

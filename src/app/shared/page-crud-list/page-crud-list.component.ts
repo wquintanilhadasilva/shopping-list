@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FilterParam, WfilterPipe } from 'wngx-filter';
+import { CrudList } from '../model/crud-list';
+import { CrudListColumn } from '../model/crud-list-column';
 
 @Component({
   selector: 'app-page-crud-list',
@@ -7,7 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageCrudListComponent implements OnInit {
 
-  constructor() { }
+  crudList: CrudList<any> | undefined;
+
+  @Input()
+  public set columns(value:CrudListColumn[]){
+    if(!this.crudList){
+      this.crudList = new CrudList<any>(this.pipe);
+    }
+    this.crudList.columns = value;
+  }
+
+  @Input()
+  public set filter(filter: FilterParam[] | string | number){
+    this.crudList?.filter(filter);
+  }
+
+  @Input()
+  public set dataSource(value: any[]){
+    if(!this.crudList){
+      this.crudList = new CrudList<any>(this.pipe);
+    }
+    this.crudList.dataSource = value;
+  }
+
+  constructor(private pipe: WfilterPipe) {
+    this.crudList = new CrudList<any>(this.pipe);
+  }
 
   ngOnInit(): void {
   }

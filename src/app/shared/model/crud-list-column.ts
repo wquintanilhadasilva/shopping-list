@@ -6,9 +6,11 @@ export class CrudListColumn {
   public hint?: string;
   public image64?: boolean = false;
   public islink?: boolean = false;
-  public fnFormat?: (value: any) => string;
-  public fnShowCondition?: (value: any, defaultValue?: string) => boolean;
-  public fnCellValue?: (value: any) => string;
+  public defaultValue?: string = '';
+  public fnFormat?: (value: any) => any;
+  public fnShowCondition?: (value: any) => boolean;
+  public fnCellValue?: (value: any) => any;
+  public link?: (value: any) => string;
 
   constructor(
     {
@@ -17,18 +19,22 @@ export class CrudListColumn {
       hint,
       image64,
       islink,
+      defaultValue,
       fnFormat,
       fnShowCondition,
       fnCellValue,
+      link,
     } : {
       field?: string | null,
       label?: string | null,
       hint?: string,
       image64?: boolean,
       islink?: boolean,
-      fnFormat?: (value: any) => string,
+      defaultValue?: string,
+      fnFormat?: (value: any) => any,
       fnShowCondition?: (value: any) => boolean,
-      fnCellValue?: (value: any) => string,
+      fnCellValue?: (value: any) => any,
+      link?: (value: any) => string,
     } = {}
   ){
     this.field = field;
@@ -36,16 +42,18 @@ export class CrudListColumn {
     this.hint = hint;
     this.image64 = image64;
     this.islink = islink;
-    this.fnFormat =fnFormat;
+    this.defaultValue = defaultValue ?? '';
+    this.fnFormat = fnFormat;
     this.fnShowCondition = fnShowCondition;
     this.fnCellValue = fnCellValue;
+    this.link = link;
   }
 
   public static builder(): CrudListColumnBuilder {
     return new CrudListColumnBuilder();
   }
 
-  public value(row: any, format: boolean = false): string {
+  public value(row: any, format: boolean = false, useFnCellValue: boolean = true): any {
 
     let show = true;
 
@@ -56,14 +64,14 @@ export class CrudListColumn {
     if (show){
 
       /** Se tiver uma função para gerar o valor da célula, retorna o valor gerado pela função */
-      if(this.fnCellValue) {
+      if(this.fnCellValue && useFnCellValue) {
 
         return this.fnCellValue(row);
 
       }else {
 
         if(!this.field){
-          return '';
+          return this.defaultValue ?? '';
         }
 
         let val = row[this.field];
@@ -76,32 +84,17 @@ export class CrudListColumn {
       }
 
     } else {
-      return '';
+      return this.defaultValue ?? '';
     }
 
+  }
 
-
-
-    // if (this.field){
-
-    //   if (show){
-
-    //     let val = row[this.field];
-
-    //     if (this.fnFormat && format) {
-    //       val = this.fnFormat(val);
-    //     }
-
-    //     return val;
-
-    //   } else {
-    //     return '';
-    //   }
-
-    // } else {
-    //   return '';
-    // }
-
+  getLink(val: any): string {
+    if(this.link){
+      return this.link(val);
+    } else {
+      return '#';
+    }
   }
 
 }
@@ -112,9 +105,11 @@ export class CrudListColumnBuilder {
   private _hint?: string;
   private _image64?: boolean;
   private _islink?: boolean;
+  private _defaultValue?: string;
   private _fnFormat?: (value: any) => string;
   private _fnShowCondition?: (value: any) => boolean;
   private _fnCellValue?: (value: any) => string;
+  private _link?: (value: any) => string;
 
   public label(val: string): CrudListColumnBuilder {
     this._label = val;
@@ -136,7 +131,11 @@ export class CrudListColumnBuilder {
     this._islink = val;
     return this;
   }
-  public fnFormat(val: (value: any) => string): CrudListColumnBuilder {
+  public defaultValue(val: string): CrudListColumnBuilder {
+    this._defaultValue = val;
+    return this;
+  }
+  public fnFormat(val: (value: any) => any): CrudListColumnBuilder {
     this._fnFormat = val;
     return this;
   }
@@ -144,8 +143,12 @@ export class CrudListColumnBuilder {
     this._fnShowCondition = val;
     return this;
   }
-  public fnCellValue(val: (value: any) => string): CrudListColumnBuilder {
+  public fnCellValue(val: (value: any) => any): CrudListColumnBuilder {
     this._fnCellValue = val;
+    return this;
+  }
+  public link(val: (value: any) => string): CrudListColumnBuilder {
+    this._link = val;
     return this;
   }
 
@@ -157,9 +160,11 @@ export class CrudListColumnBuilder {
         hint: this._hint,
         image64: this._image64,
         islink: this._islink,
+        defaultValue: this._defaultValue,
         fnFormat: this._fnFormat,
         fnShowCondition: this._fnShowCondition,
-        fnCellValue: this._fnCellValue
+        fnCellValue: this._fnCellValue,
+        link: this._link,
       }
     );
   }

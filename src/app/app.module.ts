@@ -5,6 +5,7 @@ import { WngxFilterModule, WfilterPipe } from 'wngx-filter';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule,
     WngxFilterModule,
+    SharedModule,
   ],
   providers: [
     WfilterPipe,
