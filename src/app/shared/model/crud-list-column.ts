@@ -11,6 +11,7 @@ export class CrudListColumn {
   public fnShowCondition?: (value: any) => boolean;
   public fnCellValue?: (value: any) => any;
   public link?: (value: any) => string;
+  public isAction?: boolean = false;
 
   constructor(
     {
@@ -24,6 +25,7 @@ export class CrudListColumn {
       fnShowCondition,
       fnCellValue,
       link,
+      isAction,
     } : {
       field?: string | null,
       label?: string | null,
@@ -35,6 +37,7 @@ export class CrudListColumn {
       fnShowCondition?: (value: any) => boolean,
       fnCellValue?: (value: any) => any,
       link?: (value: any) => string,
+      isAction?: boolean,
     } = {}
   ){
     this.field = field;
@@ -47,6 +50,7 @@ export class CrudListColumn {
     this.fnShowCondition = fnShowCondition;
     this.fnCellValue = fnCellValue;
     this.link = link;
+    this.isAction = isAction;
   }
 
   public static builder(): CrudListColumnBuilder {
@@ -114,6 +118,7 @@ export class CrudListColumnBuilder {
   private _fnShowCondition?: (value: any) => boolean;
   private _fnCellValue?: (value: any) => string;
   private _link?: (value: any) => string;
+  private _isAction?: boolean = false
 
   public label(val: string): CrudListColumnBuilder {
     this._label = val;
@@ -155,6 +160,10 @@ export class CrudListColumnBuilder {
     this._link = val;
     return this;
   }
+  public isAction(val: boolean): CrudListColumnBuilder {
+    this._isAction = val;
+    return this;
+  }
 
   public build(): CrudListColumn {
     return new CrudListColumn(
@@ -169,6 +178,7 @@ export class CrudListColumnBuilder {
         fnShowCondition: this._fnShowCondition,
         fnCellValue: this._fnCellValue,
         link: this._link,
+        isAction: this._isAction,
       }
     );
   }

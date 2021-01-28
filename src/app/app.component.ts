@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterParam, WfilterPipe } from 'wngx-filter';
+import { ListAction } from './shared/model/crud-list-action';
 import { CrudListColumn } from './shared/model/crud-list-column';
 import { ImageService } from './shared/services/image.service';
 
@@ -22,9 +23,26 @@ export class AppComponent implements OnInit{
 
   v: Veiculo[] = [];
 
-  gridActions = [
+  gridActions: ListAction[] = [
     // {label: 'Habilitar', icon: 'fa fa', color: 'warn', condition: (row:Veiculo) => row.ano === 2002 },
+    new ListAction('Habilitar', (row:Veiculo) => console.log(row), {hint: (row:Veiculo) => `executar ${row.marca}`,}),
+    new ListAction('Editar', this.x),
+    new ListAction('XPTO', this.y),
+    new ListAction('AAA', (row:Veiculo) => this.a(row)),
   ];
+
+  private x(v: Veiculo): void {
+    console.log('Editando');
+    console.log(v);
+  }
+  private y(v: Veiculo): void {
+    console.log('Removendo');
+    console.log(v);
+  }
+  private a(v: Veiculo): void {
+    console.log('AAAA');
+    console.log(v);
+  }
 
   constructor(private pipe: WfilterPipe, imageService: ImageService) {
     this.columns = [

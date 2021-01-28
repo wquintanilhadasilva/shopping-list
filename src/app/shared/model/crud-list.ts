@@ -1,10 +1,13 @@
 import { BehaviorSubject, Observable } from "rxjs";
 import { FilterParam, WfilterPipe } from "wngx-filter";
+import { ListAction } from "./crud-list-action";
 import { CrudListColumn } from "./crud-list-column";
 
 export class CrudList<T> {
 
   private _columns: CrudListColumn[] = [];
+  private _actions: ListAction[] = [];
+  private _actionsLabel: string | null | undefined;
   private _dataSource: T[] = [];
   private _dataSourceFormated: T[] = [];
   private _dataView: BehaviorSubject<T[]> = new BehaviorSubject(this._dataSource);
@@ -13,7 +16,12 @@ export class CrudList<T> {
   }
 
   public get columns(): CrudListColumn[] {
-    return [...this._columns];
+    if(this._actionsLabel){
+      const actionCol: CrudListColumn = CrudListColumn.builder().label(this._actionsLabel).isAction(true).build();
+      return [...this._columns, actionCol];
+    } else {
+      return [...this._columns];
+    }
   }
   public set columns(value: CrudListColumn[]) {
     this._columns = value;
@@ -30,6 +38,16 @@ export class CrudList<T> {
   public set dataSource(dataSource: T[]){
     this._dataSource = dataSource;
     this.update();
+  }
+
+  public set actions(actions: ListAction[]) {
+    this._actions = actions;
+  }
+  public get actions(): ListAction[] {
+    return this._actions;
+  }
+  public set actionsLabel(label: string) {
+    this._actionsLabel = label;
   }
 
   public filter(filter: FilterParam[] | string | number): void {

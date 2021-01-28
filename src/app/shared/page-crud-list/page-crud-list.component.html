@@ -8,12 +8,21 @@
   <tbody>
     <tr *ngFor="let r of crudList?.dataView | async">
       <td *ngFor="let c of crudList?.columns">
-        <span [title]="c.getHint()" *ngIf="!c.image64 && !c.islink">{{c.value(r)}}&nbsp;</span>
-        <img *ngIf="c.image64 && !c.islink" [src]="c.value(r)">
-        <a [title]="c.getHint()" [href]="c.getLink(r)" *ngIf="c.islink">
-          <img *ngIf="c.image64" [src]="c.value(r)">
-          <span *ngIf="!c.image64">{{c.value(r)}}</span>
-        </a>
+        <div *ngIf="!c.isAction">
+          <span [title]="c.getHint()" *ngIf="!c.image64 && !c.islink">{{c.value(r)}}&nbsp;</span>
+          <img *ngIf="c.image64 && !c.islink" [src]="c.value(r)">
+          <a [title]="c.getHint()" [href]="c.getLink(r)" *ngIf="c.islink">
+            <img *ngIf="c.image64" [src]="c.value(r)">
+            <span *ngIf="!c.image64">{{c.value(r)}}</span>
+          </a>
+        </div>
+        <div *ngIf="c.isAction">
+
+          <button [title]="a?.hint(r)" *ngFor="let a of crudList?.actions" (click)="a.action(r)">
+            <i [class]="a.icon"></i>&nbsp;{{a.label}}
+          </button>
+        </div>
+
       </td>
     </tr>
   </tbody>
