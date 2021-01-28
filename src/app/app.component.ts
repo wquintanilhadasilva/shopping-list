@@ -26,6 +26,7 @@ export class AppComponent implements OnInit{
   gridActions: ListAction[] = [
     // {label: 'Habilitar', icon: 'fa fa', color: 'warn', condition: (row:Veiculo) => row.ano === 2002 },
     new ListAction('Habilitar', (row:Veiculo) => console.log(row), {hint: (row:Veiculo) => `executar ${row.marca}`,}),
+    new ListAction('COndicional', this.x, {condition: (v:Veiculo) => v.placa.indexOf('NGN2000') > -1 }),
     new ListAction('Editar', this.x),
     new ListAction('XPTO', this.y),
     new ListAction('AAA', (row:Veiculo) => this.a(row)),

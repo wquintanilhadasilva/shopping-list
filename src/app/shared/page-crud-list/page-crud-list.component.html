@@ -17,9 +17,12 @@
           </a>
         </div>
         <div *ngIf="c.isAction">
-          <button [title]="a.hint(r)" *ngFor="let a of crudList?.actions" (click)="a.action(r)">
-            <i [class]="a.icon"></i>&nbsp;{{a.label}}
-          </button>
+          <div *ngFor="let a of crudList?.actions">
+            <button [title]="a.hint(r)" *ngIf="a.condition(r)" (click)="a.action(r)">
+              <i [class]="a.icon"></i>&nbsp;{{a.label}}
+            </button>
+          </div>
+
         </div>
 
       </td>
