@@ -16,8 +16,9 @@ export class CrudList<T> {
   }
 
   public get columns(): CrudListColumn[] {
-    if(this._actionsLabel){
-      const actionCol: CrudListColumn = CrudListColumn.builder().label(this._actionsLabel).isAction(true).build();
+    if(this._actions || this._actionsLabel){
+      const actlabel = this._actionsLabel ?? '';
+      const actionCol: CrudListColumn = CrudListColumn.builder().label(actlabel).isAction(true).build();
       return [...this._columns, actionCol];
     } else {
       return [...this._columns];
