@@ -17,8 +17,7 @@
           </a>
         </div>
         <div *ngIf="c.isAction">
-
-          <button [title]="a?.hint(r)" *ngFor="let a of crudList?.actions" (click)="a.action(r)">
+          <button [title]="a.hint(r)" *ngFor="let a of crudList?.actions" (click)="a.action(r)">
             <i [class]="a.icon"></i>&nbsp;{{a.label}}
           </button>
         </div>
