@@ -33,6 +33,11 @@ export class PageCrudListComponent implements OnInit {
     this.crudList.dataSource = value;
   }
 
+  @Input()
+  public set actions(value: any[]) {
+
+  }
+
   constructor(private pipe: WfilterPipe) {
     this.crudList = new CrudList<any>(this.pipe);
   }

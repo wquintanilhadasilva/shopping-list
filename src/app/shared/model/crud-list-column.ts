@@ -97,6 +97,10 @@ export class CrudListColumn {
     }
   }
 
+  getHint(): string {
+    return this.hint ?? '';
+  }
+
 }
 
 export class CrudListColumnBuilder {

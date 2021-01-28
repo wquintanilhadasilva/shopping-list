@@ -1,5 +1,10 @@
 <input type="text" #textfilter/>
 <br/>
 <button (click)="filter(textfilter.value)" >Filtrar</button>
-<app-page-crud-list [columns]="columns" [dataSource]="v"  [filter]="filterParam"></app-page-crud-list>
+<app-page-crud-list
+  [columns]="columns"
+  [dataSource]="v"
+  [filter]="filterParam"
+  [actions]="gridActions"
+  ></app-page-crud-list>
 

@@ -22,14 +22,18 @@ export class AppComponent implements OnInit{
 
   v: Veiculo[] = [];
 
+  gridActions = [
+    // {label: 'Habilitar', icon: 'fa fa', color: 'warn', condition: (row:Veiculo) => row.ano === 2002 },
+  ];
+
   constructor(private pipe: WfilterPipe, imageService: ImageService) {
     this.columns = [
-      new CrudListColumn({ field: 'ano', label: 'Ano'}),
+      new CrudListColumn({ field: 'ano', label: 'Ano', hint: 'TEXTO DE AJUDA!',}),
       new CrudListColumn({ field: 'placa', label: 'Placa'}),
       new CrudListColumn({ field: 'modelo', label: 'Modelo'}),
       new CrudListColumn({ field: 'marca', label: 'Marca', fnShowCondition: (row:Veiculo)=> !(row.marca.indexOf('Marca 7') > -1), defaultValue: 'N/A!!'}),
       new CrudListColumn({ field: 'data', label: 'Fabricação', fnFormat: (v:Date) => v.toLocaleDateString(), fnShowCondition: (row:Veiculo)=> row.ano === 2001, defaultValue: '***'}),
-      new CrudListColumn({ label: 'LINK', islink: true, link: (row:Veiculo) => `http://google.com.br/search?q=${row.marca}`, fnCellValue: (row:Veiculo) => `${row.marca}/${row.modelo}`}),
+      new CrudListColumn({ label: 'LINK', islink: true, link: (row:Veiculo) => `http://google.com.br/search?q=${row.marca}`, fnCellValue: (row:Veiculo) => `${row.marca}/${row.modelo}`, hint: 'help!!'}),
       new CrudListColumn({ field: 'marca', label: 'LINK', islink: true, link: (row:Veiculo) => `http://google.com.br/search?q=${row.marca}`,}),
       new CrudListColumn({ label: 'Marca/Modelo', fnCellValue: (row:Veiculo) => `${row.modelo} - ${row.marca}`,}),
       new CrudListColumn({ field: 'foto', image64: true, islink: true, link: (row:Veiculo) => 'http://google.com.br', label: 'Imagem', fnCellValue: (row:Veiculo) => imageService.transformB64toImage(row.foto), fnShowCondition: (row:Veiculo)=> row.foto !== null && row.foto !== undefined}),
