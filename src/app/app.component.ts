@@ -15,6 +15,7 @@ export class Veiculo {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+
   title = 'shopping-list';
 
   columns: CrudListColumn[] = [];
@@ -88,6 +89,10 @@ export class AppComponent implements OnInit{
       {field: 'marca', value: filter},
     ];
     this.filterParam = f;
+  }
+
+  custAction(v:Veiculo): void {
+    console.log(v);
   }
 
   private buildVeiculo(): void {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { FilterParam, WfilterPipe } from 'wngx-filter';
 import { CrudList } from '../model/crud-list';
 import { ListAction } from '../model/crud-list-action';
@@ -47,6 +47,13 @@ export class PageCrudListComponent implements OnInit {
       this.crudList = new CrudList<any>(this.pipe);
     }
     this.crudList.actionsLabel = value;
+  }
+  @Input()
+  public set actionsTemplate(value: TemplateRef<any>) {
+    if(!this.crudList){
+      this.crudList = new CrudList<any>(this.pipe);
+    }
+    this.crudList.actionsTemplate = value;
   }
 
   constructor(private pipe: WfilterPipe) {

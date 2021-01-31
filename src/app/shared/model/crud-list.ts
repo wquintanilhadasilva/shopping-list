@@ -1,3 +1,4 @@
+import { TemplateRef } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { FilterParam, WfilterPipe } from "wngx-filter";
 import { ListAction } from "./crud-list-action";
@@ -11,6 +12,7 @@ export class CrudList<T> {
   private _dataSource: T[] = [];
   private _dataSourceFormated: T[] = [];
   private _dataView: BehaviorSubject<T[]> = new BehaviorSubject(this._dataSource);
+  private _actionsTemplate!: TemplateRef<any>;
 
   constructor(private pipeFilter: WfilterPipe) {
   }
@@ -49,6 +51,16 @@ export class CrudList<T> {
   }
   public set actionsLabel(label: string) {
     this._actionsLabel = label;
+  }
+
+  public get hasActionsTemplate(): boolean {
+    return this._actionsTemplate != null && this._actionsTemplate != undefined;
+  }
+  public set actionsTemplate(value: TemplateRef<any>) {
+    this._actionsTemplate = value;
+  }
+  public get actionsTemplate(): TemplateRef<any>{
+      return this._actionsTemplate;
   }
 
   public filter(filter: FilterParam[] | string | number): void {
