@@ -7,7 +7,12 @@
   [filter]="filterParam"
   [actions]="gridActions"
   [actionsLabel]="'Ações'"
+  [showMore]="showMore"
+  (loadMore)="more()"
+  [loadMoreLabel]="'Buscar outros...'"
   ></app-page-crud-list>
+
+  <button (click)="showMore = !showMore">acabou!</button>
 
   <app-page-crud-list
   [columns]="columns"

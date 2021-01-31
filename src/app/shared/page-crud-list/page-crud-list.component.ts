@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { FilterParam, WfilterPipe } from 'wngx-filter';
 import { CrudList } from '../model/crud-list';
 import { ListAction } from '../model/crud-list-action';
@@ -12,6 +12,9 @@ import { CrudListColumn } from '../model/crud-list-column';
 export class PageCrudListComponent implements OnInit {
 
   crudList: CrudList<any> | undefined;
+
+  @Output()
+  loadMore: EventEmitter<void> = new EventEmitter<void>();
 
   @Input()
   public set columns(value:CrudListColumn[]){
@@ -55,12 +58,26 @@ export class PageCrudListComponent implements OnInit {
     }
     this.crudList.actionsTemplate = value;
   }
-
+  @Input()
+  public set showMore(show: boolean) {
+    if(!this.crudList){
+      this.crudList = new CrudList<any>(this.pipe);
+    }
+    this.crudList.showMore = show;
+  }
+  @Input()
+  public set loadMoreLabel(label: string) {
+    if(!this.crudList){
+      this.crudList = new CrudList<any>(this.pipe);
+    }
+    this.crudList.loadMoreLabel = label;
+  }
   constructor(private pipe: WfilterPipe) {
     this.crudList = new CrudList<any>(this.pipe);
   }
 
   ngOnInit(): void {
+    this.crudList!.fnLoadMore = () => this.loadMore.emit();
   }
 
 }

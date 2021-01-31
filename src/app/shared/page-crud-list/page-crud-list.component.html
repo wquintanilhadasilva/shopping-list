@@ -37,6 +37,9 @@
 
       </td>
     </tr>
+    <tr *ngIf="crudList!.showMore">
+      <button (click)="crudList!.onLoadMore()">{{crudList!.loadMoreLabel}}</button>
+    </tr>
   </tbody>
 </table>
 <hr/>

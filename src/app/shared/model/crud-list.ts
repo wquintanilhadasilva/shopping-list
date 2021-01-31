@@ -14,6 +14,10 @@ export class CrudList<T> {
   private _dataView: BehaviorSubject<T[]> = new BehaviorSubject(this._dataSource);
   private _actionsTemplate!: TemplateRef<any>;
 
+  private _showMore = false;
+  private _loadMoreLabel?: string;
+  private _fnLoadMore?: () => void;
+
   constructor(private pipeFilter: WfilterPipe) {
   }
 
@@ -63,6 +67,22 @@ export class CrudList<T> {
       return this._actionsTemplate;
   }
 
+  public set showMore(show: boolean) {
+    this._showMore = show;
+  }
+  public get showMore(): boolean {
+    return this._showMore;
+  }
+  public set loadMoreLabel(label: string) {
+    this._loadMoreLabel = label;
+  }
+  public get loadMoreLabel(): string {
+    return this._loadMoreLabel ?? 'Mais +';
+  }
+  public set fnLoadMore(fn: () => void) {
+    this._fnLoadMore = fn;
+  }
+
   public filter(filter: FilterParam[] | string | number): void {
     /** use wngx-filter */
     this._dataView.next(this.pipeFilter.transform(this._dataSourceFormated, filter));
@@ -97,6 +117,12 @@ export class CrudList<T> {
 
   public addColumn(columnDef: CrudListColumn): void {
     this._columns.push(columnDef);
+  }
+
+  public onLoadMore(): void {
+    if(this._fnLoadMore) {
+      this._fnLoadMore();
+    }
   }
 
   private update(): void {

@@ -95,6 +95,12 @@ export class AppComponent implements OnInit{
     console.log(v);
   }
 
+  more(): void {
+    console.log('carregar mais');
+  }
+
+  showMore = true;
+
   private buildVeiculo(): void {
 
     this.v = [];
