@@ -9,6 +9,14 @@
   [actionsLabel]="'Ações'"
   ></app-page-crud-list>
 
+  <app-page-crud-list
+  [columns]="columns"
+  [dataSource]="v"
+  [filter]="filterParam"
+  [actionsTemplate]="actions"
+  [actionsLabel]="'Ações com template customizado'"
+  ></app-page-crud-list>
+
   <ng-template #actions let-v="item" let-idx="index">
     <span (click)="custAction(v)">ações customizadas</span>
   </ng-template>

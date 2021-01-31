@@ -18,7 +18,7 @@ export class CrudList<T> {
   }
 
   public get columns(): CrudListColumn[] {
-    if(this._actions || this._actionsLabel){
+    if(this._actions || this._actionsLabel || this.hasActionsTemplate){
       const actlabel = this._actionsLabel ?? '';
       const actionCol: CrudListColumn = CrudListColumn.builder().label(actlabel).isAction(true).build();
       return [...this._columns, actionCol];
