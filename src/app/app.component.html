@@ -1,4 +1,4 @@
-<input type="text" #textfilter/>
+<!-- <input type="text" #textfilter/>
 <br/>
 <button (click)="filter(textfilter.value)" >Filtrar</button>
 <app-page-crud-list
@@ -23,5 +23,17 @@
   ></app-page-crud-list>
 
   <ng-template #actions let-v="item" let-idx="index">
-    <span (click)="custAction(v)">ações customizadas</span>
-  </ng-template>
+    <span (click)="custAction(v)">ações customizadas {{idx}}</span>
+  </ng-template> -->
+
+
+  <app-page-app>
+    <nav>
+      <ul>
+        <li><a routerLink="/">Início</a></li>
+        <li><a routerLink="/cadastro" routerLinkActive="active">Cadastro</a></li>
+        <li><a routerLink="/leitura">Leitura</a></li>
+      </ul>
+    </nav>
+    <router-outlet></router-outlet>
+  </app-page-app>

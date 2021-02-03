@@ -7,6 +7,7 @@ import { PageCrudComponent } from './page-crud/page-crud.component';
 import { PageCrudEditComponent } from './page-crud-edit/page-crud-edit.component';
 import { PageCrudListComponent } from './page-crud-list/page-crud-list.component';
 import { PageCrudFilterComponent } from './page-crud-filter/page-crud-filter.component';
+import { PageAppComponent } from './page-app/page-app.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PageCrudFilterComponent } from './page-crud-filter/page-crud-filter.com
     PageCrudComponent,
     PageCrudEditComponent,
     PageCrudListComponent,
-    PageCrudFilterComponent
+    PageCrudFilterComponent,
+    PageAppComponent,
   ],
   imports: [
     CommonModule
@@ -29,6 +31,7 @@ import { PageCrudFilterComponent } from './page-crud-filter/page-crud-filter.com
     PageCrudEditComponent,
     PageCrudListComponent,
     PageCrudFilterComponent,
+    PageAppComponent,
   ]
 })
 export class SharedModule { }
