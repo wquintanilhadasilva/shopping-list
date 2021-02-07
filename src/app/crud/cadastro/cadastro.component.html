@@ -1,5 +1,19 @@
-<app-page-crud>
+<app-page-crud
+  [columns]="columns"
+  [dataSource]="v"
+  [filterConfigure]="filter"
+  [gridActions]="gridActions"
+  [actionsLabel]="'Ações'"
+  [showMore]="showMore"
+  [loadMore]="more"
+  [loadMoreLabel]="'Buscar outros...'"
+  [actionsTemplate] ="actions"
+  >
   <p>cadastro works!</p>
   <h1>teste</h1>
   <span>outra linha</span>
 </app-page-crud>
+
+<ng-template #actions let-v="item" let-idx="index">
+  <span (click)="custAction(v)">ações customizadas {{idx}}</span>
+</ng-template>

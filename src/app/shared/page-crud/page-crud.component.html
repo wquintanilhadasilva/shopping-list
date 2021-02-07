@@ -1,3 +1,14 @@
 <p>page-crud works!</p>
-<app-page-crud-filter></app-page-crud-filter>
 <ng-content></ng-content>
+<app-page-crud-filter (filter)="filterApply($event)"></app-page-crud-filter>
+<app-page-crud-list #list
+  [columns]="columns"
+  [dataSource]="dataSource"
+  [filter]="filterParam"
+  [actions]="gridActions"
+  [actionsLabel]="actionsLabel"
+  [showMore]="showMore"
+  [loadMoreLabel]="loadMoreLabel"
+  [actionsTemplate]="actionsTemplate"
+  (loadMore)="more()"
+  ></app-page-crud-list>

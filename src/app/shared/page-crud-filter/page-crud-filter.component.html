@@ -1,1 +1,4 @@
 <p>page-crud-filter works!</p>
+<input type="text" #textfilter/>
+<br/>
+<button (click)="filter.emit(textfilter.value)" >Filtrar</button>

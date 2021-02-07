@@ -91,7 +91,7 @@ export class CrudList<T> {
 
   public merge(data:T[]): void {
     if (data) {
-      this._dataSource.concat(data);
+      this._dataSource= this._dataSource.concat(data);
       this.update();
     }
   }

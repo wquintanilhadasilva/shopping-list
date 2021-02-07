@@ -80,4 +80,10 @@ export class PageCrudListComponent implements OnInit {
     this.crudList!.fnLoadMore = () => this.loadMore.emit();
   }
 
+  public merge(data:any[]): void {
+    if (data && this.crudList) {
+      this.crudList.merge(data);
+    }
+  }
+
 }

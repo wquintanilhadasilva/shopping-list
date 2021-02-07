@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-page-crud-filter',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-crud-filter.component.css']
 })
 export class PageCrudFilterComponent implements OnInit {
+
+  @Output()
+  filter: EventEmitter<string> = new EventEmitter<string>();
 
   constructor() { }
 
