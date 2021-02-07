@@ -1,39 +1,10 @@
-<!-- <input type="text" #textfilter/>
-<br/>
-<button (click)="filter(textfilter.value)" >Filtrar</button>
-<app-page-crud-list
-  [columns]="columns"
-  [dataSource]="v"
-  [filter]="filterParam"
-  [actions]="gridActions"
-  [actionsLabel]="'Ações'"
-  [showMore]="showMore"
-  (loadMore)="more()"
-  [loadMoreLabel]="'Buscar outros...'"
-  ></app-page-crud-list>
-
-  <button (click)="showMore = !showMore">acabou!</button>
-
-  <app-page-crud-list
-  [columns]="columns"
-  [dataSource]="v"
-  [filter]="filterParam"
-  [actionsTemplate]="actions"
-  [actionsLabel]="'Ações com template customizado'"
-  ></app-page-crud-list>
-
-  <ng-template #actions let-v="item" let-idx="index">
-    <span (click)="custAction(v)">ações customizadas {{idx}}</span>
-  </ng-template> -->
-
-
-  <app-page-app>
-    <nav>
-      <ul>
-        <li><a routerLink="/">Início</a></li>
-        <li><a routerLink="/cadastro" routerLinkActive="active">Cadastro</a></li>
-        <li><a routerLink="/leitura">Leitura</a></li>
-      </ul>
-    </nav>
-    <router-outlet></router-outlet>
-  </app-page-app>
+<app-page-app>
+  <nav>
+    <ul>
+      <li><a routerLink="/">Início</a></li>
+      <li><a routerLink="/cadastro" routerLinkActive="active">Cadastro</a></li>
+      <li><a routerLink="/leitura">Leitura</a></li>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet>
+</app-page-app>

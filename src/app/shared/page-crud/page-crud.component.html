@@ -1,5 +1,8 @@
 <p>page-crud works!</p>
 <ng-content></ng-content>
+<hr/>
+<button>Novo</button>
+<hr/>
 <app-page-crud-filter (filter)="filterApply($event)"></app-page-crud-filter>
 <app-page-crud-list #list
   [columns]="columns"
