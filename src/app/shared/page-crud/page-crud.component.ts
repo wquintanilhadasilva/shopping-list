@@ -16,6 +16,9 @@ export class PageCrudComponent implements OnInit {
   private list!: PageCrudListComponent;
 
   @Input()
+  title: string = '';
+
+  @Input()
   columns: CrudListColumn[] = [];
 
   @Input()
