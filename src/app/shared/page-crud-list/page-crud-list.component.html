@@ -10,12 +10,14 @@
       <td *ngFor="let c of crudList?.columns">
 
         <div *ngIf="!c.isAction">
-          <span [title]="c.getHint()" *ngIf="!c.image64 && !c.islink">{{c.value(r)}}&nbsp;</span>
-          <img *ngIf="c.image64 && !c.islink" [src]="c.value(r)">
-          <a [title]="c.getHint()" [href]="c.getLink(r)" *ngIf="c.islink">
-            <img *ngIf="c.image64" [src]="c.value(r)">
-            <span *ngIf="!c.image64">{{c.value(r)}}</span>
-          </a>
+          <div (click)="fnClick(c, r)" [ngStyle]="{'cursor': hasActionClick(c) ? 'pointer' : 'auto'}">
+            <span [title]="c.getHint()" *ngIf="!c.image64 && !c.islink">{{c.value(r)}}&nbsp;</span>
+            <img *ngIf="c.image64 && !c.islink" [src]="c.value(r)">
+            <a [title]="c.getHint()" [href]="c.getLink(r)" *ngIf="c.islink">
+              <img *ngIf="c.image64" [src]="c.value(r)">
+              <span *ngIf="!c.image64">{{c.value(r)}}</span>
+            </a>
+          </div>
         </div>
 
         <div *ngIf="c.isAction">

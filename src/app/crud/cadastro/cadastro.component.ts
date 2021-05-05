@@ -23,19 +23,19 @@ export class CadastroComponent implements OnInit {
 
   showMore = true;
 
-  gridActions: ListAction[] = [
-    // {label: 'Habilitar', icon: 'fa fa', color: 'warn', condition: (row:Veiculo) => row.ano === 2002 },
-    new ListAction('Habilitar', (row: Veiculo) => console.log(row), {hint: (row:Veiculo) => `executar ${row.marca}`,}),
-    new ListAction('COndicional', this.x, {condition: (v:Veiculo) => v.placa.indexOf('NGN2000') > -1 }),
-    new ListAction('Editar', this.x),
-    new ListAction('XPTO', this.y),
-    new ListAction('AAA', (row:Veiculo) => this.a(row)),
-  ];
+  // gridActions: ListAction[] = [
+  //   // {label: 'Habilitar', icon: 'fa fa', color: 'warn', condition: (row:Veiculo) => row.ano === 2002 },
+  //   new ListAction('Habilitar', (row: Veiculo) => console.log(row), {hint: (row:Veiculo) => `executar ${row.marca}`,}),
+  //   new ListAction('COndicional', this.x, {condition: (v:Veiculo) => v.placa.indexOf('NGN2000') > -1 }),
+  //   new ListAction('Editar', this.x),
+  //   new ListAction('XPTO', this.y),
+  //   new ListAction('AAA', (row:Veiculo) => this.a(row)),
+  // ];
 
   constructor(imageService: ImageService) {
     this.columns = [
       new CrudListColumn({ field: 'ano', label: 'Ano', hint: 'TEXTO DE AJUDA!',}),
-      new CrudListColumn({ field: 'placa', label: 'Placa'}),
+      new CrudListColumn({ field: 'placa', label: 'Placa', fnClick: (v) => console.log(v)}),
       new CrudListColumn({ field: 'modelo', label: 'Modelo'}),
       new CrudListColumn({ field: 'marca', label: 'Marca', fnShowCondition: (row:Veiculo)=> !(row.modelo.indexOf('Modelo 7') > -1), defaultValue: 'N/A!!'}),
       new CrudListColumn({ field: 'data', label: 'Fabricação', fnFormat: (v:Date) => v.toLocaleDateString(), fnShowCondition: (row:Veiculo)=> row.ano === 2001, defaultValue: '***'}),

@@ -43,7 +43,7 @@ export class PageCrudComponent implements OnInit {
   filterConfigure?: (filter: string) => FilterParam[];
 
   @Input()
-  loadMore?: () => any[];
+  loadMoreFn?: () => any[];
 
   filterParam: FilterParam[] = [];
 
@@ -53,8 +53,8 @@ export class PageCrudComponent implements OnInit {
   }
 
   more(): void {
-    if(this.loadMore){
-      this.list.merge(this.loadMore());
+    if(this.loadMoreFn){
+      this.list.merge(this.loadMoreFn());
     }
   }
 

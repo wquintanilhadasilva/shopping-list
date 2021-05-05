@@ -86,4 +86,14 @@ export class PageCrudListComponent implements OnInit {
     }
   }
 
+  public fnClick(column: CrudListColumn, value: any): void {
+    if (column.fnClick) {
+      column.fnClick(value);
+    }
+  }
+
+  public hasActionClick(column: CrudListColumn): boolean {
+    return column && column.fnClick !== null && column.fnClick !== undefined;
+  }
+
 }
